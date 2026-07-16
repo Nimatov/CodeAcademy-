@@ -10,9 +10,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 
-# Paketlarni yig'ish
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts \
-    && npm install && npm run build
+# Faqat composer yuklaymiz, npm build'ni tashlab ketamiz
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts
 
 # Port va ishga tushirish buyrug'i
 EXPOSE 80
