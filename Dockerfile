@@ -1,4 +1,4 @@
-FROM php:8.2-fpm-alpine
+FROM php:8.2-cli-alpine
 
 # Tizim paketlari va PostgreSQL drayverini o'rnatish
 RUN apk add --no-cache nodejs npm git unzip libpq-dev \
@@ -10,9 +10,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 
-# Faqat composer yuklaymiz, npm build'ni tashlab ketamiz
+# Dependentliklarni o'rnatish
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts
 
-# Port va ishga tushirish buyrug'i
+# Port sozlamasi va eng oddiy ishga tushirish buyrug'i
 EXPOSE 80
-CMD php artisan serve --host=0.0.0.0 --port=${PORT:-80}
+CMD ["php", "-S", "0.0.0.0:80", "-t", "public"]
