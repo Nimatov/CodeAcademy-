@@ -21,3 +21,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test/start', 'TestController@start')->name('test.start')->middleware('auth');
+Route::get('/run-migrations', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        return "Muvaffaqiyatli! Jadvallar yaratildi:<br><pre>" . \Illuminate\Support\Facades\Artisan::output() . "</pre>";
+    } catch (\Exception $e) {
+        return "Xatolik yuz berdi: " . $e->getMessage();
+    }
+});
