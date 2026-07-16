@@ -13,6 +13,8 @@ COPY . .
 # Dependentliklarni o'rnatish
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts
 
-# Port sozlamasi va eng oddiy ishga tushirish buyrug'i
+# Port sozlamasi
 EXPOSE 80
-CMD ["php", "-S", "0.0.0.0:80", "-t", "public"]
+
+# Avval bazani migratsiya qiladi, keyin serverni yoqadi
+CMD php artisan migrate --force && php -S 0.0.0.0:80 -t public
