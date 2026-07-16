@@ -16,5 +16,5 @@ RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-
 # Port sozlamasi
 EXPOSE 80
 
-# Avval bazani migratsiya qiladi, keyin serverni yoqadi
-CMD php artisan migrate --force && php -S 0.0.0.0:80 -t public
+# Faqat serverni ishga tushiramiz (hech qanday artisan skriptlarsiz)
+CMD ["php", "-S", "0.0.0.0:80", "-t", "public"]
