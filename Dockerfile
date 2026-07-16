@@ -11,7 +11,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # Paketlarni yig'ish
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs \
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts \
     && npm install && npm run build
 
 # Port va ishga tushirish buyrug'i
